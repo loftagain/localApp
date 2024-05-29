@@ -8,4 +8,6 @@ public interface ClientInterface {
     void save(Clientele theClientele);
     Clientele findById(Integer id);
     List<Clientele> findAll();
+    void update(Clientele theClientele);
+    void delete(Integer id);
 }

@@ -34,4 +34,17 @@ public class ClientDAOImpl implements ClientInterface{
         TypedQuery<Clientele> theQuery=entityManager.createQuery("FROM Clientele order by bank_account",Clientele.class);
         return theQuery.getResultList();
     }
+
+    @Override
+    @Transactional //cause we update
+    public void update(Clientele theClientele) {
+    entityManager.merge(theClientele);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Clientele theClientele=entityManager.find(Clientele.class, id);
+        entityManager.remove(theClientele);
+    }
 }

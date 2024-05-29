@@ -20,8 +20,30 @@ public class LocalAppApplication {
 			createClient(clientInterface);
 			readClient(clientInterface);
 			queryForClientele(clientInterface);
+			updateClient(clientInterface);
+			deleteClient(clientInterface);
 		};
 }
+
+	private void deleteClient(ClientInterface clientInterface) {
+		System.out.println("Deleting client with Id=2");
+		clientInterface.delete(2);
+		Clientele tempClient=clientInterface.findById(2);
+		if(tempClient==null){
+			System.out.println("Client with id=2 has been successfully deleted!");
+		}
+		else System.out.println("Client with id=2 is still found!");
+	}
+
+	private void updateClient(ClientInterface clientInterface) {
+		System.out.println("Getting client with Id 1...");
+		Clientele tempClient=clientInterface.findById(1);
+
+		System.out.println("Changing name from "+tempClient.getNickname()+" to Amanda");
+		tempClient.setNickname("Amanda");
+		clientInterface.update(tempClient); //crucial to save to database!
+		System.out.println("Client's new name is "+tempClient.getNickname());
+	}
 
 	private void queryForClientele(ClientInterface clientInterface) {
 		List<Clientele> theClients=clientInterface.findAll();
