@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
-
+@Entity //this is a class mapped to a database table!
 @NoArgsConstructor
 @Data //getters, setters, toString, hashCode, equals.
-@Entity //this is a class mapped to a database table!
+
 @Table(name="clientele")
 public class Clientele {
 @Id
