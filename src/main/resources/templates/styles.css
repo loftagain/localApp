@@ -1,6 +1,6 @@
 /* src/main/resources/static/css/styles.css*/
 body, div, head {
-    background-color: rgb(255, 128, 0);
+    background-color: rgb(255, 208, 0);
 }
 .mugshot-container {
     display: flex;
@@ -11,6 +11,8 @@ body, div, head {
 
 .mugshot {
     border: 1px solid #ccc;
+    color: red;
+    background-color:red;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
