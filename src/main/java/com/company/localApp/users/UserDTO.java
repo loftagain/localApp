@@ -1,4 +1,4 @@
-package com.company.localApp;
+package com.company.localApp.users;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
