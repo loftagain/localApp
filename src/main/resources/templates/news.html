@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Onion News</title>
+    <link rel="stylesheet" href="/static/news-style.css">
+</head>
+<body>
+<h1>The Onion News</h1>
+<div th:if="${articles.size() > 0}">
+    <ul>
+        <li th:each="article : ${articles}" class="article">
+            <div th:if="${article.imageUrl != null}">
+                <img th:src="${article.imageUrl}" alt="Article Image">
+            </div>
+            <h2><a th:href="${article.link}" th:text="${article.title}" target="_blank"></a></h2>
+            <p th:text="${article.preview}"></p>
+        </li>
+    </ul>
+</div>
+<div th:if="${articles.size() == 0}">
+    <p>No articles found.</p>
+</div>
+</body>
+</html>

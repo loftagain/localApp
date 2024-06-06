@@ -1,7 +1,5 @@
-package com.company.localApp;
+package com.company.localApp.users;
 
-import com.company.localApp.mugshots.Mugshot;
-import com.company.localApp.mugshots.MugshotRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
