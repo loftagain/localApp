@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:fragment="title">Welcome</title>
+    <style th:fragment="link">
+        .welcome-title {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .welcome-content {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="welcome-title">
+        <h1>Welcome to Our Application</h1>
+    </div>
+    <div class="welcome-content">
+        <p>We are glad to have you here. Explore the latest news and updates.</p>
+    </div>
+</div>
+</body>
+</html>

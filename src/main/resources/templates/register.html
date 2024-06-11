@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+</head>
+<body>
+<h1>Register</h1>
+<form action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <input type="text" th:field="*{username}" placeholder="Username" />
+    <input type="password" th:field="*{password}" placeholder="Password" />
+    <input type="email" th:field="*{email}" placeholder="Email" />
+    <select name="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
+    <input type="file" name="image" accept="image/jpeg, image/png" />
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>
