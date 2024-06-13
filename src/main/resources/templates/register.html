@@ -2,19 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
+    <style>
+        .register-form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-form input,
+        .register-form textarea,
+        .register-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .register-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .register-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>Register</h1>
-<form action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
-    <input type="text" th:field="*{username}" placeholder="Username" />
-    <input type="password" th:field="*{password}" placeholder="Password" />
-    <input type="email" th:field="*{email}" placeholder="Email" />
-    <select name="role">
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-    </select>
-    <input type="file" name="image" accept="image/jpeg, image/png" />
-    <button type="submit">Register</button>
-</form>
+<div class="register-form">
+    <h2>Register</h2>
+    <form th:action="@{/register}" th:object="${userDTO}" method="post" enctype="multipart/form-data">
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+        <input type="text" th:field="*{nickname}" placeholder="Nickname" required>
+        <input type="password" th:field="*{password}" placeholder="Password" required>
+        <input type="email" th:field="*{email}" placeholder="Email" required>
+        <textarea th:field="*{description}" placeholder="Description (max 300 characters)" maxlength="300"></textarea>
+        <input type="file" name="image" accept="image/jpeg, image/png">
+        <button type="submit">Register</button>
+    </form>
+</div>
 </body>
 </html>

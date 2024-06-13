@@ -1,5 +1,7 @@
 package com.company.localApp.users;
 
-public interface RoleRepo {
-    Role findByName(String roleUser);
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepo extends JpaRepository<Role, Long> {
+    Role findByName(String name);
 }
