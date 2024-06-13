@@ -31,9 +31,9 @@ public class UserController {
             @ApiResponse(responseCode = "403", description = "Access forbidden"),
             @ApiResponse(responseCode = "500", description = "An error occurred while retrieving users")
     })
-    @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        List<UserDTO> users = userService.getUsers();
+    @GetMapping("/mugshots")
+    public ResponseEntity<?> getUsers() {
+        List<User> users = userService.getAllUsers();
 
         if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

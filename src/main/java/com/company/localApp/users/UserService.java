@@ -1,41 +1,64 @@
 package com.company.localApp.users;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    private final UserDTOMapper userDTOMapper;
-    private final UserRepo userRepo;
-    private final RoleRepo roleRepo;
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
-    public UserService(UserDTOMapper userDTOMapper, UserRepo userRepo, RoleRepo roleRepo) {
-        this.userDTOMapper = userDTOMapper;
-        this.userRepo = userRepo;
-        this.roleRepo = roleRepo;
-    }
+    private UserRepo userRepo;
 
+    @Autowired
+    private RoleRepo roleRepo;
 
-    public List<UserDTO> getUsers(){
-        return userRepo.findAll()
-                .stream()
-                .map(userDTOMapper)
-                .collect(Collectors.toList());
-    }
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void save(User user, String role) {
-        Role assignedRole;
-        if ("admin".equalsIgnoreCase(role)) {
-            assignedRole = roleRepo.findByName("ROLE_ADMIN");
-        } else {
-            assignedRole = roleRepo.findByName("ROLE_USER");
-        }
-        user.setRoles(new HashSet<>(Arrays.asList(assignedRole)));
+    @Transactional
+    public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepo.findByName("ROLE_USER"));
+        user.setRoles(roles);
         userRepo.save(user);
+    }
+
+    public boolean existsByNickname(String nickname) {
+        return userRepo.existsByNickname(nickname);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
+
+    @Transactional
+    public void updateRole(Long userId, String roleName) {
+        logger.debug("Updating role for user ID: {}", userId);
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + userId));
+        Role role = roleRepo.findByName(roleName);
+        if (role == null) {
+            logger.debug("Role {} not found, creating a new one", roleName);
+            role = new Role();
+            role.setName(roleName);
+            roleRepo.save(role);
+        }
+        user.getRoles().clear();
+        user.getRoles().add(role);
+        userRepo.save(user);
+        logger.debug("Role updated successfully for user ID: {}", userId);
     }
 }

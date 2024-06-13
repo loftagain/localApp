@@ -1,13 +1,27 @@
 package com.company.localApp.users;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.function.Function;
-@Service
-public class UserDTOMapper implements Function<User, UserDTO> {
-    @Override
-    public UserDTO apply(User user){
-        if(user==null) {return null;}
-        return new UserDTO(user.getName(),user.getDescription());
+@Component
+public class UserDTOMapper {
+
+    public User toEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setNickname(userDTO.getNickname());
+        user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
+        user.setDescription(userDTO.getDescription());
+        user.setImagePath(userDTO.getImagePath());
+        return user;
+    }
+
+    public UserDTO toDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setNickname(user.getNickname());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setDescription(user.getDescription());
+        userDTO.setImagePath(user.getImagePath());
+        return userDTO;
     }
 }
