@@ -1,30 +1,108 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title th:fragment="title">Welcome</title>
-    <style th:fragment="link">
-        .welcome-title {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 2em;
-            color: #333;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Marbles into a Jar</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
 
-        .welcome-content {
-            text-align: center;
-            font-size: 1.2em;
-            margin-top: 20px;
+        #marble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .content {
+            padding: 20px;
+            height: 200vh; /* Example content height */
         }
     </style>
 </head>
 <body>
-<div th:fragment="content">
-    <div class="welcome-title">
-        <h1>Welcome to Our Application</h1>
-    </div>
-    <div class="welcome-content">
-        <p>We are glad to have you here. Explore the latest news and updates.</p>
-    </div>
+<div id="marble-container"></div>
+<div class="content">
+    <h1>Welcome to the Falling Marbles Website</h1>
+    <p>Scroll down to see the marbles fall into the jar.</p>
+    <!-- Add more content as needed -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const { Engine, Render, Runner, Bodies, Composite, World } = Matter;
+
+        const marbleContainer = document.getElementById('marble-container');
+        const engine = Engine.create();
+        const world = engine.world;
+
+        const render = Render.create({
+            element: marbleContainer,
+            engine: engine,
+            options: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                wireframes: false,
+                background: 'transparent'
+            }
+        });
+
+        Render.run(render);
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+
+        // Create walls to act as the jar boundaries
+        const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight, window.innerWidth, 20, { isStatic: true });
+        const leftWall = Bodies.rectangle(0, window.innerHeight / 2, 20, window.innerHeight, { isStatic: true });
+        const rightWall = Bodies.rectangle(window.innerWidth, window.innerHeight / 2, 20, window.innerHeight, { isStatic: true });
+
+        World.add(world, [ground, leftWall, rightWall]);
+
+        function createMarble() {
+            const radius = 30; // Increase marble size
+            const marble = Bodies.circle(Math.random() * window.innerWidth, -50, radius, {
+                restitution: 0.8, // Bounciness
+                render: {
+                    fillStyle: '#3498db'
+                }
+            });
+            World.add(world, marble);
+        }
+
+        // Generate initial marbles
+        const numberOfMarbles = 10; // Reduce number of marbles
+        for (let i = 0; i < numberOfMarbles; i++) {
+            createMarble();
+        }
+
+        // Handle scrolling effect
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            marbleContainer.style.top = `${scrollTop}px`;
+
+            // Generate marbles as you scroll down
+            if (scrollTop > 0) {
+                for (let i = 0; i < numberOfMarbles / 10; i++) {
+                    createMarble();
+                }
+            }
+        });
+
+        // Adjust canvas size on window resize
+        window.addEventListener('resize', () => {
+            render.canvas.width = window.innerWidth;
+            render.canvas.height = window.innerHeight;
+        });
+    });
+</script>
 </body>
 </html>
