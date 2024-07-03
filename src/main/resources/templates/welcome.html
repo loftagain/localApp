@@ -41,7 +41,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const { Engine, Render, Runner, Bodies, Composite, World } = Matter;
+        const { Engine, Render, Runner, Bodies, Composite, World, Body } = Matter;
 
         const marbleContainer = document.getElementById('marble-container');
         const engine = Engine.create();
@@ -69,8 +69,10 @@
 
         World.add(world, [ground, leftWall, rightWall]);
 
+        const marbles = [];
+
         function createMarble() {
-            const radius = 30; // Increase marble size
+            const radius = 42; // Increase marble size
             const marble = Bodies.circle(Math.random() * window.innerWidth, -50, radius, {
                 restitution: 0.8, // Bounciness
                 render: {
@@ -78,13 +80,36 @@
                 }
             });
             World.add(world, marble);
+            marbles.push(marble);
         }
 
         // Generate initial marbles
-        const numberOfMarbles = 10; // Reduce number of marbles
+        const numberOfMarbles = 12; // Reduce number of marbles
         for (let i = 0; i < numberOfMarbles; i++) {
             createMarble();
         }
+
+        let lastScrollTop = 0;
+        let lastTime = Date.now();
+
+        // Add scroll event listener to make marbles bounce
+        window.addEventListener('scroll', () => {
+            const currentScrollTop = window.scrollY;
+            const currentTime = Date.now();
+            const scrollDelta = currentScrollTop - lastScrollTop;
+            const timeDelta = currentTime - lastTime;
+
+            const scrollSpeed = Math.abs(scrollDelta / timeDelta); // Scroll speed in pixels per millisecond
+
+            marbles.forEach(marble => {
+                const horizontalForce = (Math.random() - 0.5) * 0.02;
+                const verticalForce = Math.min(scrollSpeed * 0.02, 0.03); // Reduce sensitivity and cap the maximum vertical force
+                Body.applyForce(marble, marble.position, { x: horizontalForce, y: -verticalForce });
+            });
+
+            lastScrollTop = currentScrollTop;
+            lastTime = currentTime;
+        });
 
         // Adjust canvas size on window resize
         window.addEventListener('resize', () => {
