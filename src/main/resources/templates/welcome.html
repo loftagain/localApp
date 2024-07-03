@@ -26,6 +26,8 @@
         .content {
             padding: 20px;
             height: 200vh; /* Example content height */
+            position: relative;
+            z-index: 1; /* Ensure content scrolls beneath the marble container */
         }
     </style>
 </head>
@@ -83,19 +85,6 @@
         for (let i = 0; i < numberOfMarbles; i++) {
             createMarble();
         }
-
-        // Handle scrolling effect
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            marbleContainer.style.top = `${scrollTop}px`;
-
-            // Generate marbles as you scroll down
-            if (scrollTop > 0) {
-                for (let i = 0; i < numberOfMarbles / 10; i++) {
-                    createMarble();
-                }
-            }
-        });
 
         // Adjust canvas size on window resize
         window.addEventListener('resize', () => {
