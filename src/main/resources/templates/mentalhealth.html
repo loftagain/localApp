@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health</title>
+    <th:block th:replace="fragments/styles :: styles"></th:block>
+    <style>
+        body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .video-container {
+            position: relative;
+            width: 80vw; /* Adjust as needed */
+            max-width: 800px; /* Adjust as needed */
+            aspect-ratio: 16/9; /* Ensure the aspect ratio is correct */
+        }
+
+        .video-container iframe {
+            width: 90%;
+            height: 100%;
+            border: 0;
+            z-index: 1; /* Ensure the video is above the background */
+        }
+
+        .frame-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%; /* Extended size to fit over the video */
+            height: 150%; /* Extended size to fit over the video */
+            background: url('/images/frame.png') no-repeat center center;
+            background-size: contain;
+            transform: translate(-50%, -50%); /* Center the frame */
+            pointer-events: none; /* Allow clicks to pass through to the video */
+            z-index: 2; /* Ensure the frame is above the video */
+        }
+    </style>
+</head>
+<body th:with="pageTitle='Mental Health Page', pageContent='this :: content'">
+<div th:fragment="content">
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/WAxFEVcp_-Y?si=4mld_Sm0wxbI9fhg"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+        <div class="frame-overlay"></div>
+    </div>
+</div>
+</body>
+</html>

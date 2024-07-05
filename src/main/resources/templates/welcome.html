@@ -184,6 +184,23 @@
                     newsLink.style.display = 'block';
 
                     marble.isInteractive = false; // Only glow and reveal once
+
+                    // Make marble clickable
+                    marble.render.isInteractive = true;
+
+                    // Add click event listener
+                    render.canvas.addEventListener('click', (event) => {
+                        const mouseX = event.clientX;
+                        const mouseY = event.clientY;
+                        const distX = mouseX - marble.position.x;
+                        const distY = mouseY - marble.position.y;
+                        const distance = Math.sqrt(distX * distX + distY * distY);
+                        if (distance < marble.circleRadius) {
+                            // Spin the marble and reveal a different color
+                            marble.render.fillStyle = 'rgba(0, 255, 0, 1)'; // Change color to green
+                            Body.setAngularVelocity(marble, 0.1); // Apply spin
+                        }
+                    });
                 }
             });
         });
