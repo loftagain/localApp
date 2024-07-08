@@ -1,18 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>360&deg; Image</title>
-    <meta name="description" content="360&deg; Image - A-Frame">
-    <script src="/static/css/aframe-master.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Frame Model Interaction</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
 <a-scene>
-    <a-sky src="/static/images/wash-dresden.jpg" rotation="0 -130 0"></a-sky>
+    <a-assets>
+        <a-asset-item id="model" src="/static/soulsucker/scene.gltf"></a-asset-item>
+    </a-assets>
 
-    <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
-            rotation="0 15 0"></a-text>
+    <a-entity id="clickable-model" gltf-model="#model" position="0 1.6 -3" rotation="0 45 0" scale="0.5 0.5 0.5" class="clickable"></a-entity>
+
+    <a-entity id="info-text" text="value: ; color: black; width: 4" position="0 2 -3" visible="false"></a-entity>
+    <a-sky color="#ECECEC"></a-sky>
+
+    <!-- Camera with cursor for interaction -->
+    <a-entity camera look-controls>
+        <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                  material="color: black; shader: flat"></a-entity>
+    </a-entity>
 </a-scene>
-<script></script>
+
+<script>
+    AFRAME.registerComponent('cursor-listener', {
+      init: function () {
+        this.el.addEventListener('click', function (evt) {
+          const infoText = document.getElementById('info-text');
+          infoText.setAttribute('text', 'value', 'This is your model. Click to interact!');
+          infoText.setAttribute('visible', 'true');
+          setTimeout(() => {
+            infoText.setAttribute('visible', 'false');
+          }, 3000);
+        });
+      }
+    });
+
+    document.querySelector('#clickable-model').setAttribute('cursor-listener', '');
+</script>
 </body>
 </html>

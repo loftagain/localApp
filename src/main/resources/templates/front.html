@@ -4,32 +4,32 @@
     <meta charset="utf-8">
     <title>360&deg; Image</title>
     <meta name="description" content="360&deg; Image - A-Frame">
-    <script src="/static/css/aframe-master.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
 <a-scene>
     <a-sky src="/static/images/wash-dresden.jpg" rotation="0 -130 0"></a-sky>
 
-    <a-text font="kelsonsans" value="Hiiiii" width="6" position="-2.5 0.25 -1.5" rotation="0 15 0"></a-text>
+    <a-text font="kelsonsans" value="Hiiiii" width="6" position="-2.5 -0.25 -1.5" rotation="0 15 0"></a-text>
 
-    <!-- 6 3D Model components arranged in a circle with slight floating effect -->
-    <a-entity id="myButton2" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="4 0 0" rotation="0 -90 0">
-        <a-animation attribute="position" to="4 0.05 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <!-- 6 3D Model components arranged in a circle with slight floating effect, lowered position, and larger scale -->
+    <a-entity id="myButton2" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="5 -0.5 0" rotation="0 -90 0" class="clickable">
+        <a-animation attribute="position" to="5 -0.45 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
-    <a-entity id="myButton3" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="2 0 3.46" rotation="0 -150 0">
-        <a-animation attribute="position" to="2 0.05 3.46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <a-entity id="myButton3" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.5 4.33" rotation="0 -150 0" class="clickable">
+        <a-animation attribute="position" to="2.5 -0.45 4.33" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
-    <a-entity id="myButton4" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="-2 0 3.46" rotation="0 150 0">
-        <a-animation attribute="position" to="-2 0.05 3.46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <a-entity id="myButton4" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.5 4.33" rotation="0 150 0" class="clickable">
+        <a-animation attribute="position" to="-2.5 -0.45 4.33" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
-    <a-entity id="myButton5" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="-4 0 0" rotation="0 90 0">
-        <a-animation attribute="position" to="-4 0.05 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <a-entity id="myButton5" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-5 -0.5 0" rotation="0 90 0" class="clickable">
+        <a-animation attribute="position" to="-5 -0.45 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
-    <a-entity id="myButton6" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="-2 0 -3.46" rotation="0 30 0">
-        <a-animation attribute="position" to="-2 0.05 -3.46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <a-entity id="myButton6" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.5 -4.33" rotation="0 30 0" class="clickable">
+        <a-animation attribute="position" to="-2.5 -0.45 -4.33" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
-    <a-entity id="myButton7" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1 1 1" position="2 0 -3.46" rotation="0 -30 0">
-        <a-animation attribute="position" to="2 0.05 -3.46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+    <a-entity id="myButton7" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.5 -4.33" rotation="0 -30 0" class="clickable">
+        <a-animation attribute="position" to="2.5 -0.45 -4.33" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
     </a-entity>
 
     <!-- Simple VR button -->
@@ -40,31 +40,34 @@
     <a-text id="message" value="Click the model!" position="0 2 -3" color="blue" visible="false"></a-text>
     <!-- Add a camera and cursor for VR interaction -->
     <a-entity camera position="0 1.6 0" wasd-controls look-controls="reverse-mouse-drag: true">
-        <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: #FFF; shader: flat;" visible="false"></a-entity>
+        <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: #FFF; shader: flat;"></a-entity>
     </a-entity>
 </a-scene>
 <script>
     AFRAME.registerComponent('toggle-visibility', {
         init: function () {
-            // Reference to the entity this component is attached to
-            const el = this.el;
             // Reference to the text element
             const message = document.querySelector('#message');
 
             // Add event listener to the element this component is attached to
-            el.addEventListener('click', function (event) {
+            this.el.addEventListener('click', function (event) {
                 // Toggle the visibility of the text element
                 const isVisible = message.getAttribute('visible');
                 message.setAttribute('visible', !isVisible);
 
-                // Stop the event from propagating to allow other interactions
-                event.stopPropagation();
+                // Identify the clicked model
+                const clickedModel = event.currentTarget;
+                let position = clickedModel.getAttribute('position');
+                let newY = isVisible ? position.y - 1 : position.y + 1;
+                clickedModel.setAttribute('position', `${position.x} ${newY} ${position.z}`);
             });
         }
     });
 
-    // Attach the component to the button
-    document.querySelector('#myButton').setAttribute('toggle-visibility', '');
+    // Attach the component to each clickable model individually
+    document.querySelectorAll('.clickable').forEach(el => {
+        el.setAttribute('toggle-visibility', '');
+    });
 </script>
 </body>
 </html>
