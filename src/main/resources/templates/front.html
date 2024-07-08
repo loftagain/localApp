@@ -8,7 +8,7 @@
 </head>
 <body>
 <a-scene>
-    <a-sky src="/static/images/wash-dresden.jpg" rotation="0 130 0"></a-sky>
+    <a-sky src="/static/images/wash-dresden.jpg" rotation="0 -130 0"></a-sky>
 
     <a-text font="kelsonsans" value="Hiiiii" width="6" position="-2.5 0.25 -1.5"
             rotation="0 15 0"></a-text>
@@ -24,7 +24,7 @@
     <!-- Text message initially hidden -->
     <a-text id="message" value="Click the model!" position="0 2 -3" color="blue" visible="false"></a-text>
     <!-- Add a camera and cursor for VR interaction -->
-    <a-entity camera position="0 1.6 0" wasd-controls look-controls>
+    <a-entity camera position="0 1.6 0" wasd-controls look-controls="reverse-mouse-drag: true">
         <a-cursor></a-cursor>
     </a-entity>
 </a-scene>
