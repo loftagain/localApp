@@ -41,6 +41,9 @@
     </a-entity>
     <a-text id="text7" value="Model 6" width="6" position="2.5 -1.0 -4.33" rotation="0 -30 0" visible="false"></a-text>
 
+    <!-- Add a large container that will be displayed next to Model 5 -->
+    <a-plane id="largeContainer" color="#FFFFFF" width="10" height="5" position="-8 2.5 -5" rotation="0 30 0" visible="false" shadow="receive: false"></a-plane>
+
     <!-- Add a camera and cursor for VR interaction -->
     <a-entity id="cameraRig" camera position="0 1.6 0" wasd-controls look-controls="reverse-mouse-drag: true">
         <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: #FFF; shader: flat;"></a-entity>
@@ -105,6 +108,13 @@
                 const textElement = document.querySelector('#' + textId);
                 const textIsVisible = textElement.getAttribute('visible');
                 textElement.setAttribute('visible', !textIsVisible);
+
+                // If Model 5 is clicked, toggle the visibility of the large container
+                if (textId === 'text6') {
+                    const largeContainer = document.querySelector('#largeContainer');
+                    const containerIsVisible = largeContainer.getAttribute('visible');
+                    largeContainer.setAttribute('visible', !containerIsVisible);
+                }
             });
         }
     });
