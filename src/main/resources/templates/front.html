@@ -10,34 +10,37 @@
 <a-scene>
     <a-sky src="/static/images/wash-dresden.jpg" rotation="0 -130 0"></a-sky>
 
-    <a-text font="kelsonsans" value="Hiiiii" width="6" position="-2.5 -0.25 -1.5" rotation="0 15 0"></a-text>
-
     <!-- 6 3D Model components arranged in a circle with slight floating effect, lowered position, and larger scale -->
-    <a-entity id="myButton2" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="5 -0.5 0" rotation="0 -90 0" class="clickable"
-              animation__position="property: position; to: 5 0.05 0; dir: alternate; dur: 2000; loop: true">
+    <a-entity id="myButton2" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="5 -0.8 0" rotation="0 -90 0" class="clickable"
+              animation__float="property: position; to: 5 -0.3 0; dir: alternate; dur: 2500; loop: true">
     </a-entity>
-    <a-entity id="myButton3" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.5 4.33" rotation="0 -150 0" class="clickable"
-              animation__position="property: position; to: 2.5 0.05 4.33; dir: alternate; dur: 2000; loop: true">
-    </a-entity>
-    <a-entity id="myButton4" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.5 4.33" rotation="0 150 0" class="clickable"
-              animation__position="property: position; to: -2.5 0.05 4.33; dir: alternate; dur: 2000; loop: true">
-    </a-entity>
-    <a-entity id="myButton5" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-5 -0.5 0" rotation="0 90 0" class="clickable"
-              animation__position="property: position; to: -5 0.05 0; dir: alternate; dur: 2000; loop: true">
-    </a-entity>
-    <a-entity id="myButton6" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.5 -4.33" rotation="0 30 0" class="clickable"
-              animation__position="property: position; to: -2.5 0.05 -4.33; dir: alternate; dur: 2000; loop: true">
-    </a-entity>
-    <a-entity id="myButton7" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.5 -4.33" rotation="0 -30 0" class="clickable"
-              animation__position="property: position; to: 2.5 0.05 -4.33; dir: alternate; dur: 2000; loop: true">
-    </a-entity>
+    <a-text id="text2" value="Model 1" width="6" position="5 -1.0 0" rotation="0 -90 0" visible="false"></a-text>
 
-    <!-- Simple VR button -->
-    <a-box id="myButton" position="0 1.6 -3" rotation="0 45 0" width="1" height="1" depth="0.2" color="#4CC3D9" class="clickable">
-        <a-text value="Click Me" align="center" position="0 0 0.1" color="#FFF"></a-text>
-    </a-box>
-    <!-- Text message initially hidden -->
-    <a-text id="message" value="Click the model!" position="0 2 -3" color="blue" visible="false"></a-text>
+    <a-entity id="myButton3" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.8 4.33" rotation="0 -150 0" class="clickable"
+              animation__float="property: position; to: 2.5 -0.3 4.33; dir: alternate; dur: 2500; loop: true">
+    </a-entity>
+    <a-text id="text3" value="Model 2" width="6" position="2.5 -1.0 4.33" rotation="0 -150 0" visible="false"></a-text>
+
+    <a-entity id="myButton4" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.8 4.33" rotation="0 150 0" class="clickable"
+              animation__float="property: position; to: -2.5 -0.3 4.33; dir: alternate; dur: 2500; loop: true">
+    </a-entity>
+    <a-text id="text4" value="Model 3" width="6" position="-2.5 -1.0 4.33" rotation="0 150 0" visible="false"></a-text>
+
+    <a-entity id="myButton5" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-5 -0.8 0" rotation="0 90 0" class="clickable"
+              animation__float="property: position; to: -5 -0.3 0; dir: alternate; dur: 2500; loop: true">
+    </a-entity>
+    <a-text id="text5" value="Model 4" width="6" position="-5 -1.0 0" rotation="0 90 0" visible="false"></a-text>
+
+    <a-entity id="myButton6" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.8 -4.33" rotation="0 30 0" class="clickable"
+              animation__float="property: position; to: -2.5 -0.3 -4.33; dir: alternate; dur: 2500; loop: true">
+    </a-entity>
+    <a-text id="text6" value="Model 5" width="6" position="-2.5 -1.0 -4.33" rotation="0 30 0" visible="false"></a-text>
+
+    <a-entity id="myButton7" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="2.5 -0.8 -4.33" rotation="0 -30 0" class="clickable"
+              animation__float="property: position; to: 2.5 -0.3 -4.33; dir: alternate; dur: 2500; loop: true">
+    </a-entity>
+    <a-text id="text7" value="Model 6" width="6" position="2.5 -1.0 -4.33" rotation="0 -30 0" visible="false"></a-text>
+
     <!-- Add a camera and cursor for VR interaction -->
     <a-entity id="cameraRig" camera position="0 1.6 0" wasd-controls look-controls="reverse-mouse-drag: true">
         <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: #FFF; shader: flat;"></a-entity>
@@ -46,16 +49,10 @@
 <script>
     AFRAME.registerComponent('toggle-visibility', {
         init: function () {
-            // Reference to the text element
-            const message = document.querySelector('#message');
             const moveDistance = 1.0; // Distance to move towards the user
 
             // Add event listener to the element this component is attached to
             this.el.addEventListener('click', function (event) {
-                // Toggle the visibility of the text element
-                const isVisible = message.getAttribute('visible');
-                message.setAttribute('visible', !isVisible);
-
                 // Identify the clicked model
                 const clickedModel = event.currentTarget;
                 let currentPosition = clickedModel.getAttribute('position');
@@ -85,7 +82,12 @@
                     };
 
                 // Animate the model to the new position
-                clickedModel.setAttribute('animation__move', `property: position; to: ${newPosition.x} ${newPosition.y} ${newPosition.z}; dur: 1000; easing: easeInOutQuad;`);
+                clickedModel.setAttribute('animation__move', `property: position; to: ${newPosition.x} -0.8 ${newPosition.z}; dur: 1000; easing: easeInOutQuad;`);
+
+                // Listen for animation completion to restart floating
+                clickedModel.addEventListener('animationcomplete__move', () => {
+                    clickedModel.setAttribute('animation__float', `property: position; to: ${newPosition.x} -0.3 ${newPosition.z}; dir: alternate; dur: 2500; loop: true`);
+                });
 
                 // Toggle the isAtCenter flag
                 clickedModel.isAtCenter = !clickedModel.isAtCenter;
@@ -94,6 +96,15 @@
                 if (!clickedModel.originalPosition) {
                     clickedModel.originalPosition = { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z };
                 }
+
+                // Emit move event to start the movement animation
+                clickedModel.emit('move');
+
+                // Toggle visibility of the respective text
+                const textId = 'text' + clickedModel.id.slice(-1);
+                const textElement = document.querySelector('#' + textId);
+                const textIsVisible = textElement.getAttribute('visible');
+                textElement.setAttribute('visible', !textIsVisible);
             });
         }
     });
