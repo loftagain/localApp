@@ -1,45 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-Frame Model Interaction</title>
+    <title>A-Frame Multiple Animations</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
 <a-scene>
-    <a-assets>
-        <a-asset-item id="model" src="/static/soulsucker/scene.gltf"></a-asset-item>
-    </a-assets>
-
-    <a-entity id="clickable-model" gltf-model="#model" position="0 1.6 -3" rotation="0 45 0" scale="0.5 0.5 0.5" class="clickable"></a-entity>
-
-    <a-entity id="info-text" text="value: ; color: black; width: 4" position="0 2 -3" visible="false"></a-entity>
-    <a-sky color="#ECECEC"></a-sky>
-
-    <!-- Camera with cursor for interaction -->
-    <a-entity camera look-controls>
-        <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1"
-                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                  material="color: black; shader: flat"></a-entity>
-    </a-entity>
+    <a-box id="animated-box" position="0 1 -5" rotation="0 45 0" color="#4CC3D9" shadow
+           animation__position="property: position; to: 0 2 -5; dir: alternate; dur: 1000; loop: true"
+           animation__rotation="property: rotation; to: 0 405 0; dur: 3000; loop: true">
+    </a-box>
 </a-scene>
-
-<script>
-    AFRAME.registerComponent('cursor-listener', {
-      init: function () {
-        this.el.addEventListener('click', function (evt) {
-          const infoText = document.getElementById('info-text');
-          infoText.setAttribute('text', 'value', 'This is your model. Click to interact!');
-          infoText.setAttribute('visible', 'true');
-          setTimeout(() => {
-            infoText.setAttribute('visible', 'false');
-          }, 3000);
-        });
-      }
-    });
-
-    document.querySelector('#clickable-model').setAttribute('cursor-listener', '');
-</script>
 </body>
 </html>

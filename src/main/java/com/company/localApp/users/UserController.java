@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController //shows spring to return json instead of
 //making it look for a template like @Controller does *.*
-@RequestMapping("/yardsale")
+@RequestMapping("")
 @Tag(name="User Controller", description = "APIs for user management")
 public class UserController {
 
@@ -31,7 +31,7 @@ public class UserController {
             @ApiResponse(responseCode = "403", description = "Access forbidden"),
             @ApiResponse(responseCode = "500", description = "An error occurred while retrieving users")
     })
-    @GetMapping("/mugshots")
+    @GetMapping("/all-members")
     public ResponseEntity<?> getUsers() {
         List<User> users = userService.getAllUsers();
 
