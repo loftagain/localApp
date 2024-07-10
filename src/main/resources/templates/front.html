@@ -24,6 +24,20 @@
             height: 100%;
             border: none;
         }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            line-height: 30px;
+        }
     </style>
 </head>
 <body>
@@ -61,10 +75,6 @@
     </a-entity>
     <a-text id="text7" value="Model 6" width="6" position="2.5 -1.0 -4.33" rotation="0 -30 0" visible="false"></a-text>
 
-    <!-- Add a large container that will be displayed next to Model 5 -->
-    <a-plane id="largeContainer" color="#FFFFFF" width="10" height="5" position="-8 2.5 -5" rotation="0 30 0" visible="false">
-    </a-plane>
-
     <!-- Add a camera and cursor for VR interaction -->
     <a-entity id="cameraRig" camera position="0 1.6 0" wasd-controls look-controls="reverse-mouse-drag: true">
         <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: #FFF; shader: flat;"></a-entity>
@@ -73,13 +83,14 @@
 
 <!-- Embedded iframe container -->
 <div id="embedded-iframe-container">
-    <iframe src="http://localhost:8080/mentalhealth"></iframe>
+    <button class="close-button" onclick="closeIframe()">X</button>
+    <iframe src="http://localhost:8080/news"></iframe>
 </div>
 
 <script>
     AFRAME.registerComponent('toggle-visibility', {
         init: function () {
-            const moveDistance = 1.0; // Distance to move towards the user
+            const moveDistance = 2.0; // Increased distance to move towards the user
 
             // Add event listener to the element this component is attached to
             this.el.addEventListener('click', function (event) {
@@ -136,12 +147,10 @@
                 const textIsVisible = textElement.getAttribute('visible');
                 textElement.setAttribute('visible', !textIsVisible);
 
-                // If Model 5 is clicked, toggle the visibility of the large container and the iframe
+                // If Model 5 is clicked, toggle the visibility of the iframe container
                 if (textId === 'text6') {
-                    const largeContainer = document.querySelector('#largeContainer');
                     const iframeContainer = document.querySelector('#embedded-iframe-container');
-                    const containerIsVisible = largeContainer.getAttribute('visible');
-                    largeContainer.setAttribute('visible', !containerIsVisible);
+                    const containerIsVisible = iframeContainer.style.display === 'block';
                     iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
                 }
             });
@@ -153,6 +162,26 @@
         el.setAttribute('toggle-visibility', '');
         el.isAtCenter = false; // Initialize the isAtCenter flag
     });
+
+    function closeIframe() {
+        const iframeContainer = document.querySelector('#embedded-iframe-container');
+        iframeContainer.style.display = 'none';
+
+        // Reset Model 5 position and animation
+        const model = document.querySelector('#myButton6');
+        const originalPosition = model.originalPosition;
+        model.setAttribute('animation__move', `property: position; to: ${originalPosition.x} -0.8 ${originalPosition.z}; dur: 1000; easing: easeInOutQuad;`);
+
+        model.addEventListener('animationcomplete__move', () => {
+            model.setAttribute('animation__float', `property: position; to: ${originalPosition.x} -0.3 ${originalPosition.z}; dir: alternate; dur: 2500; loop: true`);
+        });
+
+        model.isAtCenter = false;
+
+        // Toggle the visibility of the respective text
+        const textElement = document.querySelector('#text6');
+        textElement.setAttribute('visible', false);
+    }
 </script>
 </body>
 </html>
