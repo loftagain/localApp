@@ -10,7 +10,7 @@
             margin: 0;
             overflow: hidden;
         }
-        #embedded-iframe-container {
+        #embedded-iframe-container3, #embedded-iframe-container4, #embedded-iframe-container5, #embedded-iframe-container6 {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -19,7 +19,7 @@
             height: 500px;
             display: none;
         }
-        #embedded-iframe-container iframe {
+        #embedded-iframe-container3 iframe, #embedded-iframe-container4 iframe, #embedded-iframe-container5 iframe, #embedded-iframe-container6 iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -67,6 +67,12 @@
 
     <a-entity id="myButton6" gltf-model="url(/static/soulsucker/scene.gltf)" scale="1.5 1.5 1.5" position="-2.5 -0.8 -4.33" rotation="0 30 0" class="clickable"
               animation__float="property: position; to: -2.5 -0.3 -4.33; dir: alternate; dur: 2500; loop: true">
+        <!-- Simulated invisible jar with NEWS sticker -->
+        <a-entity id="jar" geometry="primitive: cylinder; height: 1.5; radius: 0.5" material="opacity: 0"
+                  position="0 1.45 0"
+                  animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear">
+            <a-text value="NEWS" color="turquoise" position="0 0 0.4" rotation="0 0 0" width="5"></a-text>
+        </a-entity>
     </a-entity>
     <a-text id="text6" value="Model 5" width="6" position="-2.5 -1.0 -4.33" rotation="0 30 0" visible="false"></a-text>
 
@@ -81,10 +87,25 @@
     </a-entity>
 </a-scene>
 
-<!-- Embedded iframe container -->
-<div id="embedded-iframe-container">
-    <button class="close-button" onclick="closeIframe()">X</button>
+<!-- Embedded iframe containers -->
+<div id="embedded-iframe-container3">
+    <button class="close-button" onclick="closeIframe('#embedded-iframe-container3', '#myButton4', '#text4')">X</button>
+    <iframe src="http://localhost:8080/mentalhealth"></iframe>
+</div>
+
+<div id="embedded-iframe-container4">
+    <button class="close-button" onclick="closeIframe('#embedded-iframe-container4', '#myButton5', '#text5')">X</button>
+    <iframe src="http://localhost:8080/frontier"></iframe>
+</div>
+
+<div id="embedded-iframe-container5">
+    <button class="close-button" onclick="closeIframe('#embedded-iframe-container5', '#myButton6', '#text6')">X</button>
     <iframe src="http://localhost:8080/news"></iframe>
+</div>
+
+<div id="embedded-iframe-container6">
+    <button class="close-button" onclick="closeIframe('#embedded-iframe-container6', '#myButton7', '#text7')">X</button>
+    <iframe src="http://localhost:8080/welcome"></iframe>
 </div>
 
 <script>
@@ -147,9 +168,21 @@
                 const textIsVisible = textElement.getAttribute('visible');
                 textElement.setAttribute('visible', !textIsVisible);
 
-                // If Model 5 is clicked, toggle the visibility of the iframe container
-                if (textId === 'text6') {
-                    const iframeContainer = document.querySelector('#embedded-iframe-container');
+                // Toggle the visibility of the iframe container based on the model clicked
+                if (textId === 'text4') {
+                    const iframeContainer = document.querySelector('#embedded-iframe-container3');
+                    const containerIsVisible = iframeContainer.style.display === 'block';
+                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                } else if (textId === 'text5') {
+                    const iframeContainer = document.querySelector('#embedded-iframe-container4');
+                    const containerIsVisible = iframeContainer.style.display === 'block';
+                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                } else if (textId === 'text6') {
+                    const iframeContainer = document.querySelector('#embedded-iframe-container5');
+                    const containerIsVisible = iframeContainer.style.display === 'block';
+                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                } else if (textId === 'text7') {
+                    const iframeContainer = document.querySelector('#embedded-iframe-container6');
                     const containerIsVisible = iframeContainer.style.display === 'block';
                     iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
                 }
@@ -163,12 +196,12 @@
         el.isAtCenter = false; // Initialize the isAtCenter flag
     });
 
-    function closeIframe() {
-        const iframeContainer = document.querySelector('#embedded-iframe-container');
+    function closeIframe(containerId, modelId, textId) {
+        const iframeContainer = document.querySelector(containerId);
         iframeContainer.style.display = 'none';
 
-        // Reset Model 5 position and animation
-        const model = document.querySelector('#myButton6');
+        // Reset model position and animation
+        const model = document.querySelector(modelId);
         const originalPosition = model.originalPosition;
         model.setAttribute('animation__move', `property: position; to: ${originalPosition.x} -0.8 ${originalPosition.z}; dur: 1000; easing: easeInOutQuad;`);
 
@@ -179,7 +212,7 @@
         model.isAtCenter = false;
 
         // Toggle the visibility of the respective text
-        const textElement = document.querySelector('#text6');
+        const textElement = document.querySelector(textId);
         textElement.setAttribute('visible', false);
     }
 </script>
