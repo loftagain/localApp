@@ -10,7 +10,7 @@
             margin: 0;
             overflow: hidden;
         }
-        #embedded-iframe-container3, #embedded-iframe-container4, #embedded-iframe-container5, #embedded-iframe-container6 {
+        #embedded-iframe-container1, #embedded-iframe-container3, #embedded-iframe-container4, #embedded-iframe-container5, #embedded-iframe-container6 {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -19,7 +19,7 @@
             height: 500px;
             display: none;
         }
-        #embedded-iframe-container3 iframe, #embedded-iframe-container4 iframe, #embedded-iframe-container5 iframe, #embedded-iframe-container6 iframe {
+        #embedded-iframe-container1 iframe, #embedded-iframe-container3 iframe, #embedded-iframe-container4 iframe, #embedded-iframe-container5 iframe, #embedded-iframe-container6 iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -49,7 +49,7 @@
               animation__float="property: position; to: 5 -0.3 0; dir: alternate; dur: 2500; loop: true">
         <a-entity id="jar2" geometry="primitive: cylinder; height: 1.5; radius: 0.5" material="opacity: 0"
                   position="0 1.45 0">
-            <a-text value="Model 1" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
+            <a-text value="welcome" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
         </a-entity>
     </a-entity>
     <a-text id="text2" value="Model 1" width="6" position="5 -1.0 0" rotation="0 -90 0" visible="false"></a-text>
@@ -94,7 +94,7 @@
               animation__float="property: position; to: 2.5 -0.3 -4.33; dir: alternate; dur: 2500; loop: true">
         <a-entity id="jar7" geometry="primitive: cylinder; height: 1.5; radius: 0.5" material="opacity: 0"
                   position="0 1.45 0">
-            <a-text value="welcome" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
+            <a-text value="urgent" color="turquoise" position="-0.25 0 0.8" rotation="0 0 0" width="5"></a-text>
         </a-entity>
     </a-entity>
     <a-text id="text7" value="Model 6" width="6" position="2.5 -1.0 -4.33" rotation="0 -30 0" visible="false"></a-text>
@@ -106,6 +106,11 @@
 </a-scene>
 
 <!-- Embedded iframe containers -->
+<div id="embedded-iframe-container1">
+    <button class="close-button" onclick="closeIframe('#embedded-iframe-container1', '#myButton2', '#text2')">X</button>
+    <iframe id="iframe1" src="http://localhost:8080/welcome"></iframe>
+</div>
+
 <div id="embedded-iframe-container3">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container3', '#myButton4', '#text4')">X</button>
     <iframe id="iframe3" src="http://localhost:8080/mentalhealth"></iframe>
@@ -123,7 +128,7 @@
 
 <div id="embedded-iframe-container6">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container6', '#myButton7', '#text7')">X</button>
-    <iframe id="iframe6" src="http://localhost:8080/welcome"></iframe>
+    <iframe id="iframe6" src="http://localhost:8080/urgent"></iframe>
 </div>
 
 <script>
@@ -187,7 +192,10 @@
                 textElement.setAttribute('visible', !textIsVisible);
 
                 // Toggle the visibility of the iframe container based on the model clicked
-                if (textId === 'text4') {
+                if (textId === 'text2') {
+                    const iframeContainer = document.querySelector('#embedded-iframe-container1');
+                    toggleIframe(iframeContainer, 'http://localhost:8080/welcome');
+                } else if (textId === 'text4') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container3');
                     toggleIframe(iframeContainer, 'http://localhost:8080/mentalhealth');
                 } else if (textId === 'text5') {
@@ -198,7 +206,7 @@
                     toggleIframe(iframeContainer, 'http://localhost:8080/news');
                 } else if (textId === 'text7') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container6');
-                    toggleIframe(iframeContainer, 'http://localhost:8080/welcome');
+                    toggleIframe(iframeContainer, 'http://localhost:8080/urgent');
                 }
             });
         }

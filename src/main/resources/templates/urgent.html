@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Send Urgent SMS</title>
+</head>
+<body>
+<h1>Send Urgent SMS</h1>
+<form action="/sendUrgentSms" method="post">
+    <label for="to">To:</label>
+    <input type="text" id="to" name="to" required><br><br>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea><br><br>
+    <button type="submit">Send SMS</button>
+</form>
+</body>
+</html>
