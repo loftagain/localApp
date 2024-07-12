@@ -76,7 +76,7 @@
               animation__float="property: position; to: -5 -0.3 0; dir: alternate; dur: 2500; loop: true">
         <a-entity id="jar5" geometry="primitive: cylinder; height: 1.5; radius: 0.5" material="opacity: 0"
                   position="0 1.45 0">
-            <a-text value="Model 4" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
+            <a-text value="misc" color="turquoise" position="-0.25 0 0.8" rotation="0 0 0" width="5"></a-text>
         </a-entity>
     </a-entity>
     <a-text id="text5" value="Model 4" width="6" position="-5 -1.0 0" rotation="0 90 0" visible="false"></a-text>
@@ -94,7 +94,7 @@
               animation__float="property: position; to: 2.5 -0.3 -4.33; dir: alternate; dur: 2500; loop: true">
         <a-entity id="jar7" geometry="primitive: cylinder; height: 1.5; radius: 0.5" material="opacity: 0"
                   position="0 1.45 0">
-            <a-text value="Model 6" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
+            <a-text value="welcome" color="turquoise" position="-0.5 0 0.8" rotation="0 0 0" width="5"></a-text>
         </a-entity>
     </a-entity>
     <a-text id="text7" value="Model 6" width="6" position="2.5 -1.0 -4.33" rotation="0 -30 0" visible="false"></a-text>
@@ -108,22 +108,22 @@
 <!-- Embedded iframe containers -->
 <div id="embedded-iframe-container3">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container3', '#myButton4', '#text4')">X</button>
-    <iframe src="http://localhost:8080/mentalhealth"></iframe>
+    <iframe id="iframe3" src="http://localhost:8080/mentalhealth"></iframe>
 </div>
 
 <div id="embedded-iframe-container4">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container4', '#myButton5', '#text5')">X</button>
-    <iframe src="http://localhost:8080/frontier"></iframe>
+    <iframe id="iframe4" src="http://localhost:8080/frontier"></iframe>
 </div>
 
 <div id="embedded-iframe-container5">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container5', '#myButton6', '#text6')">X</button>
-    <iframe src="http://localhost:8080/news"></iframe>
+    <iframe id="iframe5" src="http://localhost:8080/news"></iframe>
 </div>
 
 <div id="embedded-iframe-container6">
     <button class="close-button" onclick="closeIframe('#embedded-iframe-container6', '#myButton7', '#text7')">X</button>
-    <iframe src="http://localhost:8080/welcome"></iframe>
+    <iframe id="iframe6" src="http://localhost:8080/welcome"></iframe>
 </div>
 
 <script>
@@ -189,24 +189,32 @@
                 // Toggle the visibility of the iframe container based on the model clicked
                 if (textId === 'text4') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container3');
-                    const containerIsVisible = iframeContainer.style.display === 'block';
-                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                    toggleIframe(iframeContainer, 'http://localhost:8080/mentalhealth');
                 } else if (textId === 'text5') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container4');
-                    const containerIsVisible = iframeContainer.style.display === 'block';
-                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                    toggleIframe(iframeContainer, 'http://localhost:8080/frontier');
                 } else if (textId === 'text6') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container5');
-                    const containerIsVisible = iframeContainer.style.display === 'block';
-                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                    toggleIframe(iframeContainer, 'http://localhost:8080/news');
                 } else if (textId === 'text7') {
                     const iframeContainer = document.querySelector('#embedded-iframe-container6');
-                    const containerIsVisible = iframeContainer.style.display === 'block';
-                    iframeContainer.style.display = containerIsVisible ? 'none' : 'block';
+                    toggleIframe(iframeContainer, 'http://localhost:8080/welcome');
                 }
             });
         }
     });
+
+    function toggleIframe(container, url) {
+        const iframe = container.querySelector('iframe');
+        const containerIsVisible = container.style.display === 'block';
+        if (containerIsVisible) {
+            container.style.display = 'none';
+            iframe.src = ''; // Unload the iframe
+        } else {
+            container.style.display = 'block';
+            iframe.src = url; // Reload the iframe
+        }
+    }
 
     // Attach the component to each clickable model individually
     document.querySelectorAll('.clickable').forEach(el => {
@@ -216,6 +224,9 @@
 
     function closeIframe(containerId, modelId, textId) {
         const iframeContainer = document.querySelector(containerId);
+        const iframe = iframeContainer.querySelector('iframe');
+
+        iframe.src = ''; // Unload the iframe
         iframeContainer.style.display = 'none';
 
         // Reset model position and animation

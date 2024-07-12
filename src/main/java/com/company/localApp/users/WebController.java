@@ -26,4 +26,9 @@ public class WebController {
     public String showVideo() {
         return "mentalhealth";
     }
+
+    @GetMapping("/frontier")
+    public String moveObj() {
+        return "frontier";
+    }
 }
