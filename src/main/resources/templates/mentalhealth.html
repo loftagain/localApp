@@ -12,6 +12,7 @@
         justify-content: center;
         align-items: center;
         }
+
         .video-container {
 
             width: 80vw; /* Adjust as needed */
@@ -29,7 +30,12 @@
     </style>
 </head>
 <body th:with="pageTitle='Mental Health Page', pageContent='this :: content'">
+<div th:fragment="container">
 <div th:fragment="content">
+
+        <h1>Get familiar with our monthly mental-health newsletter!</h1>
+        <p>Published: July, 2024</p>
+
     <div class="video-container">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/GlYeub1JVXk?si=h8-4slSIaK4Us8Bq"
                 title="YouTube video player" frameborder="0"
@@ -37,6 +43,7 @@
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <div class="frame-overlay"></div>
     </div>
+</div>
 </div>
 </body>
 </html>

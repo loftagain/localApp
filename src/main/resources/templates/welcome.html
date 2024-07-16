@@ -1,32 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Falling Marbles into a Jar</title>
+    <th:block th:replace="fragments/styles :: styles"></th:block>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-<!--            background: url('/images/letters.gif') no-repeat center center fixed;-->
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
-            border-radius: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 10px;
-            }
-        }
 
         #marble-container {
             position: fixed;

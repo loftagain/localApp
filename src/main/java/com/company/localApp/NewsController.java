@@ -22,6 +22,6 @@ public class NewsController {
         model.addAttribute("pageTitle", "news");
         model.addAttribute("styles", "news");
         model.addAttribute("pageContent", "news");
-        return "layout";
+        return "news";
     }
 }

@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:fragment="title">News</title>
-    <style th:fragment="link">
+    <th:block th:replace="fragments/styles :: styles"></th:block>
+    <style>
         .title img {
             display: block;
             margin: 0 auto;
