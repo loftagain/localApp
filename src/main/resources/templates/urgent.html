@@ -1,75 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urgent Messages</title>
-    <style>
-        body{
-       height: 100%;
-       display: flex;
-        font-family: Arial, sans-serif;
-<!--        background: url('/images/letters.gif') no-repeat center center fixed;-->
-        background-size: cover;
-        margin: 0;
-        padding: 0;
-
-       justify-content: center;
-       align-items: center;
-       }
-       .form-container {
-             width: 60vw;
-            max-width: 800px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.8); /* Inherited semi-transparent background */
-                         }
-       form {
-           display: flex;
-           flex-direction: column;
-       }
-       h1 {
-           font-size: 2rem;
-           margin-bottom: 20px;
-           text-align: center;
-       }
-       label {
-           font-size: 1.5rem;
-           margin-bottom: 10px;
-       }
-       textarea {
-           font-size: 1.5rem;
-           padding: 10px;
-           margin-bottom: 20px;
-           border: 1px solid #ccc;
-           border-radius: 5px;
-       }
-       button {
-           font-size: 1.5rem;
-           padding: 15px;
-           background-color: grey;
-           color: white;
-           border: none;
-           border-radius: 5px;
-           cursor: pointer;
-           transition: background-color 0.3s ease;
-       }
-       button:hover {
-           background-color: darkgrey;
-       }
-    </style>
+    <title>Send Urgent SMS</title>
 </head>
-<body th:with="pageTitle='Urgent Page', pageContent='this :: content'">
-<div th:fragment="content">
-    <div class="form-container">
-        <form action="/sendUrgentSms" method="post">
-            <h1>Report to Leader</h1>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Send SMS</button>
-        </form>
-    </div>
-</div>
+<body>
+<h1>Send Urgent SMS</h1>
+<form action="/sendUrgentSms" method="post">
+    <label for="to">To:</label>
+    <input type="text" id="to" name="to" required><br><br>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea><br><br>
+    <button type="submit">Send SMS</button>
+</form>
 </body>
 </html>
