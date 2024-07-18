@@ -5,8 +5,10 @@
 3. Reload Maven
 4. Run
 5. Launch front.html
+![image](https://github.com/user-attachments/assets/d562f69b-17a6-47b8-a282-19119da49720)
+![image](https://github.com/user-attachments/assets/0530e96c-45d5-4e79-b334-c211b77c1d5e)
 
-**GIFS loading below**
+**GIFS are loading below**
 
 ![1 8720p-ezgif com-cut](https://github.com/user-attachments/assets/a49e3e1a-1ca6-4726-8c60-9d71c0a82776)
 
